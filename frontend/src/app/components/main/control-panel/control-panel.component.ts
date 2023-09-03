@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-control-panel',
   templateUrl: './control-panel.component.html',
-  styleUrls: ['./control-panel.component.scss'],
+  styleUrls: ['./control-panel.component.scss', '../main.styles.scss'],
 })
 export class ControlPanelComponent implements OnInit {
   constructor() {}

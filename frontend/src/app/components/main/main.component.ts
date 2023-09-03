@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+export interface Path {
+  firstStation: string;
+  lastStation: string;
+}
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -12,5 +17,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  setPath() {}
+  setPath(path: Path) {
+    console.log(1, path);
+  }
 }

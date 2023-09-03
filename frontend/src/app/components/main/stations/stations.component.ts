@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'app-stations',
   templateUrl: './stations.component.html',
-  styleUrls: ['./stations.component.scss'],
+  styleUrls: ['./stations.component.scss', '../main.styles.scss'],
 })
 export class StationsComponent implements OnInit {
   stationForm: FormGroup;
@@ -33,15 +33,17 @@ export class StationsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    console.log(this._firstStation);
-  }
+  ngOnInit(): void {}
 
   send() {
-    console.log(this.stationForm.controls);
+    console.log(0, this.stationForm.value);
     this.emitPath.emit({
-      firstStation: this._firstStation,
-      lastStation: this._lastStation,
+      firstStation: this._firstStation?.value,
+      lastStation: this._lastStation?.value,
+    });
+    this.stationForm.setValue({
+      firstStation: '',
+      lastStation: '',
     });
   }
 

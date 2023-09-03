@@ -6,7 +6,7 @@
     novalidate
   >
     <label for="">
-      Введите место отправления
+      <h6>Введите место отправления</h6>
       <input
         type="text"
         formControlName="firstStation"
@@ -33,7 +33,7 @@
     </label>
 
     <label for="">
-      Введите место назначения
+      <h6>Введите место назначения</h6>
       <input
         type="text"
         formControlName="lastStation"
@@ -59,7 +59,12 @@
       </span>
     </label>
 
-    <button type="button" class="station__send" (click)="send()">
+    <button
+      type="button"
+      [disabled]="!stationForm.valid"
+      class="station__send btn"
+      (click)="send()"
+    >
       Найти маршрут
     </button>
   </form>

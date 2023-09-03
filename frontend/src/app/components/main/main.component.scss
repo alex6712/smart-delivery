@@ -1,17 +1,17 @@
 .main__wrapper {
    width: 100%;
-   display: flex;
+   display: grid;
+   grid-template-columns: 2fr 1fr;
    justify-content: space-between;
    align-items: start;
    gap: 10px;
+   margin-top: 50px;
 }
 
 .station {
-   max-width: 49%;
    width: 100%;
 }
 
-.control-panel__list {
-   max-width: 49%;
+.control-panel {
    width: 100%;
 }
