@@ -1,0 +1,41 @@
+.header {
+   width: 100%;
+   margin-bottom: 50px;
+   box-shadow: 1px 1px 1px black;
+}
+
+.header__wrapper {
+   padding: 20px 0;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   gap: 10px;
+}
+
+.header__logo-link {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   max-width: 150px;
+}
+
+.header__logo {
+   width: 100%;
+   height: 100%;
+}
+
+.header__nav {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   gap: 10px;
+   text-align: center;
+   &-item {
+      text-align: center;
+   }
+   &-link {
+      text-decoration: none;
+      color: black;
+   }
+}
