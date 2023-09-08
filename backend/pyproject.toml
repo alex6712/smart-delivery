@@ -10,6 +10,15 @@ readme = "README.md"
 python = "^3.11"
 fastapi = "^0.103.1"
 SQLAlchemy = "^2.0.20"
+uvicorn = "^0.23.2"
+pydantic-settings = "^2.0.3"
+asyncpg = "^0.28.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = "^1.7.4"
+email-validator = "^2.0.0.post2"
+pydantic-extra-types = "^2.1.0"
+phonenumbers = "^8.13.19"
+python-multipart = "^0.0.6"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
