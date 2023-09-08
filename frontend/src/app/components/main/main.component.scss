@@ -1,0 +1,17 @@
+.main__wrapper {
+   width: 100%;
+   display: grid;
+   grid-template-columns: 2fr 1fr;
+   justify-content: space-between;
+   align-items: start;
+   gap: 10px;
+   margin-top: 50px;
+}
+
+.station {
+   width: 100%;
+}
+
+.control-panel {
+   width: 100%;
+}
