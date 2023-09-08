@@ -1,1 +1,1 @@
-from schemas.entities.user import UserWithPasswordSchema
+from .entities.user import UserWithPasswordSchema
