@@ -43,6 +43,6 @@ jobs:
 
       - name: Run tests
         run: |
-          source .venv/bin/activate
           cd backend
+          source .venv/bin/activate
           poetry run pytest
