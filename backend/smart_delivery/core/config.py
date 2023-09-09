@@ -1,7 +1,7 @@
 from functools import lru_cache
 from typing import List
 
-from pydantic import AnyHttpUrl, EmailStr, IPvAnyAddress, field_validator
+from pydantic import EmailStr, IPvAnyAddress, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -78,7 +78,7 @@ class Settings(BaseSettings):
 
     INITIALIZE_DB: bool
 
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl]
+    BACKEND_CORS_ORIGINS: List[str]
 
     @classmethod
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
