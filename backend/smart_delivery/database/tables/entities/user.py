@@ -19,7 +19,7 @@ class User(Base):
         UniqueConstraint("email", name="user_email_uk"),
         UniqueConstraint("phone", name="user_phone_uk"),
         {
-            "comment": "Table for users of Genshin Impact Characters Analyzer.",
+            "comment": "Table for users of Smart Delivery.",
         },
     )
 
