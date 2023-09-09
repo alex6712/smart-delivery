@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
+  FormBuilder,
+  FormControl,
+  FormGroup,
   Validators,
 } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import {
   styleUrls: ['./stations.component.scss', '../main.styles.scss'],
 })
 export class StationsComponent implements OnInit {
-  stationForm: UntypedFormGroup;
+  stationForm: FormGroup;
 
   @Input()
   stations: any[] = [];
@@ -20,13 +20,13 @@ export class StationsComponent implements OnInit {
   @Output()
   emitPath = new EventEmitter();
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.stationForm = new UntypedFormGroup({
-      firstStation: new UntypedFormControl('', [
+  constructor(private fb: FormBuilder) {
+    this.stationForm = new FormGroup({
+      firstStation: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
       ]),
-      lastStation: new UntypedFormControl('', [
+      lastStation: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
       ]),

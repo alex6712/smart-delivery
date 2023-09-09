@@ -1,0 +1,81 @@
+.btn {
+   padding: 5px 8px;
+   background: transparent;
+   background-color: transparent;
+   cursor: pointer;
+   border-radius: 5px;
+   border: 1px solid blue;
+   transition: all 0.5s;
+   height: min-content;
+   color: black;
+   &:hover {
+      background-color: rgb(0, 157, 255);
+   }
+   &:disabled {
+      background-color: darkgray;
+   }
+}
+
+.auth {
+   height: calc(100% - 111px);
+   &__wrapper {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+   }
+   &__form {
+      margin-top: 15px;
+      display: grid;
+      align-items: start;
+      grid-template-rows: 3fr 3fr 2fr;
+      justify-content: space-between;
+      gap: 10px;
+      width: max(45%, 300px);
+      grid-template-columns: 1fr;
+      & label {
+         display: flex;
+         flex-direction: column;
+         width: 100%;
+         position: relative;
+         & h6 {
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 1.2;
+            text-align: center;
+         }
+         & span {
+            color: red;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+         }
+      }
+      & input {
+         width: 100%;
+         border-radius: 5px;
+         padding: 5px;
+         border: 1px solid blue;
+         outline: none;
+         &:focus {
+            outline: solid blue 1px;
+         }
+         &.ng-valid[required],
+         .ng-valid.required {
+            border-color: blue; /* green */
+         }
+         &.ng-valid[required]:focus,
+         .ng-valid.required:focus {
+            outline: solid blue 2px;
+         }
+
+         &.ng-invalid:not(form).ng-touched {
+            border-color: red; /* red */
+         }
+         &.ng-invalid:not(form):focus.ng-touched {
+            outline: solid red 2px;
+         }
+      }
+   }
+}

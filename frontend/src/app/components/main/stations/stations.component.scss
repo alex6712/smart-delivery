@@ -4,16 +4,16 @@
    flex-direction: column;
    align-items: start;
    gap: 10px;
-   padding: 10px 0;
 }
 
 .station__top {
    display: grid;
    align-items: start;
-   grid-template-columns: 3fr 3fr 2fr;
+   grid-template-rows: 3fr 3fr 2fr;
    justify-content: space-between;
    gap: 10px;
    width: 100%;
+   grid-template-columns: 1fr;
    & label {
       display: flex;
       flex-direction: column;
@@ -21,10 +21,8 @@
       position: relative;
       & h6 {
          font-weight: normal;
-         position: absolute;
-         top: -20px;
-         left: 0;
          font-size: 16px;
+         line-height: 1.2;
       }
       & span {
          color: red;

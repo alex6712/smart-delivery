@@ -1,1 +1,72 @@
-<p>auth works!</p>
+<div class="auth">
+  <div class="container">
+    <div class="auth__wrapper">
+      <h2 class="auth__title">Авторизация</h2>
+      <form
+        (ngSubmit)="sign_in()"
+        [formGroup]="signinForm"
+        novalidate
+        class="auth__form"
+      >
+        <label for="" class="auth__form-label">
+          <h6>Введите логин</h6>
+          <input
+            type="text"
+            formControlName="username"
+            placeholder="Введите логин..."
+            required
+            minlength="5"
+            class="auth__form-input"
+          />
+          <span
+            *ngIf="
+              _username!.invalid && (_username!.touched || _username!.dirty)
+            "
+          >
+            <span *ngIf="_username!.errors?.['required']"
+              >Обязательное поле</span
+            >
+            <span
+              *ngIf="!_username!.errors?.['minLength'] && !_username!.errors?.['required']"
+              >Введенное значение слишком короткое
+              {{ _username!.errors?.['minLength'] }}</span
+            >
+          </span>
+        </label>
+        <label for="" class="auth__form-label">
+          <h6>Введите пароль</h6>
+          <input
+            type="text"
+            formControlName="password"
+            placeholder="Введите пароль..."
+            required
+            minlength="3"
+            class="auth__form-input"
+          />
+          <span
+            *ngIf="
+              _password!.invalid && (_password!.touched || _password!.dirty)
+            "
+          >
+            <span *ngIf="_password!.errors?.['required']"
+              >Обязательное поле</span
+            >
+            <span
+              *ngIf="!_password!.errors?.['minLength'] && !_password!.errors?.['required']"
+              >Введенное значение слишком короткое
+              {{ _password!.errors?.['minLength'] }}</span
+            >
+          </span>
+        </label>
+        <button
+          type="button"
+          class="auth__form-btn btn"
+          [disabled]="!signinForm.valid"
+          (click)="sign_in()"
+        >
+          Войти
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
