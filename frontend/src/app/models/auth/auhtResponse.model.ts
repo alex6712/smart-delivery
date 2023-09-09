@@ -15,3 +15,19 @@ export class RegResponse {
     public detail?: any
   ) {}
 }
+
+export class RefreshResponse {
+  constructor() {}
+}
+
+export class MeResponse {
+  constructor(
+    public code: number,
+    public message: string,
+    public id: string,
+    public username: string,
+    public email: string,
+    public phone: string,
+    public detail?: string
+  ) {}
+}

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/api/auth.service';
+import { AuthTokensSaveAction } from 'src/app/store/auth/auth.actions';
+import { AuthStore } from 'src/app/store/auth/auth.reducer';
+import { MainComponent } from '../main/main.component';
 
 @Component({
   selector: 'app-auth',
@@ -10,7 +15,11 @@ import { AuthService } from 'src/app/api/auth.service';
 export class AuthComponent implements OnInit {
   signinForm: FormGroup;
 
-  constructor(private auth: AuthService) {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private store$: Store<AuthStore>
+  ) {
     this.signinForm = new FormGroup({
       username: new FormControl<String>('', [
         Validators.required,
@@ -33,10 +42,25 @@ export class AuthComponent implements OnInit {
     formData.append('password', this._password?.value);
     this.auth.login(formData).subscribe((res) => {
       console.log(res);
-    });
-    this.signinForm.setValue({
-      username: '',
-      password: '',
+      if (res.code == 200) {
+        if (res.access_token && res.refresh_token) {
+          this.store$.dispatch(
+            new AuthTokensSaveAction({
+              access_token: res.access_token,
+              refresh_token: res.refresh_token,
+              isAuth: true,
+            })
+          );
+          localStorage.setItem('access_token', res.access_token);
+          localStorage.setItem('refresh_token', res.refresh_token);
+          localStorage.setItem('isAuth', JSON.stringify(true));
+        }
+        this.router.navigate(['main']);
+      }
+      this.signinForm.setValue({
+        username: '',
+        password: '',
+      });
     });
   }
 

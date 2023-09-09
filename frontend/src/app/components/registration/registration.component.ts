@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/api/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/api/auth.service';
 export class RegistrationComponent implements OnInit {
   signinForm: FormGroup;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
     this.signinForm = new FormGroup({
       username: new FormControl<String>('', [
         Validators.required,
@@ -44,6 +45,9 @@ export class RegistrationComponent implements OnInit {
       })
       .subscribe((res) => {
         console.log(res);
+        if (res.code == 201) {
+          this.router.navigate(['main']);
+        }
       });
     this.signinForm.setValue({
       username: '',

@@ -14,6 +14,7 @@ import { MainComponent } from './components/main/main.component';
 import { StationsComponent } from './components/main/stations/stations.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HeaderComponent } from './components/shared/header/header.component';
+import { AuthModule } from './store/auth/auth.module';
 import { authReducer } from './store/auth/auth.reducer';
 
 const reducers = {
@@ -36,12 +37,16 @@ const reducers = {
     ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot(reducers, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-      },
-    }),
+    StoreModule.forRoot(
+      {},
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+        },
+      }
+    ),
+    AuthModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

@@ -6,18 +6,28 @@
       </a>
 
       <nav class="header__nav">
-        <li class="header__nav-item">
+        <li class="header__nav-item" *ngIf="!(isAuth$ | async)">
           <a [routerLink]="['auth']" class="header__nav-link"> Войти </a>
         </li>
 
-        <li class="header__nav-item">
+        <li class="header__nav-item" *ngIf="!(isAuth$ | async)">
           <a [routerLink]="['reg']" class="header__nav-link">
             Зарегестрироваться
           </a>
         </li>
 
-        <li class="header__nav-item">
-          <a [routerLink]="['']" class="header__nav-link"> Личный кабинет </a>
+        <li class="header__nav-item" *ngIf="isAuth$ | async">
+          <a class="header__nav-link"> Привет, {{ username }} </a>
+        </li>
+
+        <li class="header__nav-item" *ngIf="isAuth$ | async">
+          <a
+            [routerLink]="['auth']"
+            class="header__nav-link"
+            (click)="exit_account()"
+          >
+            Выйти
+          </a>
         </li>
       </nav>
     </div>
