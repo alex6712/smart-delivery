@@ -26,10 +26,6 @@ export class StationsComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
       ]),
-      lastStation: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
     });
   }
 
@@ -39,19 +35,13 @@ export class StationsComponent implements OnInit {
     console.log(0, this.stationForm.value);
     this.emitPath.emit({
       firstStation: this._firstStation?.value,
-      lastStation: this._lastStation?.value,
     });
     this.stationForm.setValue({
       firstStation: '',
-      lastStation: '',
     });
   }
 
   get _firstStation() {
     return this.stationForm.get('firstStation');
-  }
-
-  get _lastStation() {
-    return this.stationForm.get('lastStation');
   }
 }
