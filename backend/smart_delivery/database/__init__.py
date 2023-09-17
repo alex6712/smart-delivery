@@ -1,1 +1,1 @@
-from .initialize import initialize
+from .initialize import main

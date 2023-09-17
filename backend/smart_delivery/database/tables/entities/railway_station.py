@@ -6,7 +6,7 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship,
 )
-from sqlalchemy.types import Integer, String
+from sqlalchemy.types import Integer, String, Float
 
 from smart_delivery.database.tables.base import Base
 
@@ -26,6 +26,8 @@ class RailwayStation(Base):
 
     code: Mapped[int] = mapped_column(Integer())
     name: Mapped[str] = mapped_column(String())
+    latitude: Mapped[float] = mapped_column(Float(), nullable=True)
+    longitude: Mapped[float] = mapped_column(Float(), nullable=True)
     railway_name: Mapped[str] = mapped_column(String(256))
 
     to_stations: Mapped["StationDistance"] = relationship(
@@ -44,6 +46,8 @@ class RailwayStation(Base):
             f"<{self.__class__.__name__}("
             f"name={self.name!r}, "
             f"code={self.code!r}, "
+            f"latitude={self.latitude!r}, "
+            f"longitude={self.longitude!r}, "
             f"railway_name={self.railway_name!r}"
             f")>"
         )
