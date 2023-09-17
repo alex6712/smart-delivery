@@ -1,8 +1,21 @@
 <div class="control-panel__wrapper">
   <div class="control-panel__map">
     <div
+      *ngIf="stations.deliveryMethod == 'auto'"
       id="map"
       style="max-width: 1000px; width: 100%; height: 600px; margin: 0 auto"
     ></div>
+
+    <div
+      class="control-panel__list"
+      *ngIf="stations.deliveryMethod == 'trailway'"
+    >
+      <p class="control-panel__list-item">
+        Откуда: {{ stations.firstStation }}
+      </p>
+      <p class="control-panel__list-item">Куда: {{ stations.lastStation }}</p>
+      <p class="control-panel__list-item">Как далеко: {{ distance }} км.</p>
+      <p class="control-panel__list-item">За сколько: {{ cost }} руб.</p>
+    </div>
   </div>
 </div>

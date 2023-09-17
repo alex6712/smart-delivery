@@ -60,11 +60,11 @@ export class StationsComponent implements OnInit {
       lastStation: this._lastStation?.value,
       deliveryMethod: this._deliveryMethod?.value,
     });
-    this.stationForm.setValue({
-      firstStation: '',
-      lastStation: '',
-      deliveryMethod: this.allDeliveryMethods[0].value,
-    });
+    //  this.stationForm.setValue({
+    //    firstStation: '',
+    //    lastStation: '',
+    //    deliveryMethod: this.allDeliveryMethods[0].value,
+    //  });
   }
 
   clearForm(str: string) {

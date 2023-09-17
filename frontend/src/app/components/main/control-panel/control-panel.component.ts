@@ -20,6 +20,15 @@ interface Stations {
 export class ControlPanelComponent implements OnInit {
   private readonly API_KEY = 'a9c75f00-b00f-4462-b0fe-9fbfacd16a88';
 
+  @Input()
+  cost: number;
+
+  @Input()
+  distance: number;
+
+  @Input()
+  stations: Stations;
+
   public map: any;
   public geolocation: any;
   public objects: any;
@@ -36,46 +45,43 @@ export class ControlPanelComponent implements OnInit {
   HOURS: any = 0;
   PRICE: any = 0;
 
-  @Input()
-  stations: Stations;
-
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     console.log(this.stations);
     if (this.stations) {
-      // if ()
-      const arr = [this.stations.firstStation, this.stations.lastStation];
-      let first: boolean = false;
-      arr.forEach((el: string) => {
-        this.http
-          .get(
-            'https://geocode-maps.yandex.ru/1.x/?apikey=' +
-              this.API_KEY +
-              '&geocode=' +
-              encodeURIComponent(el) +
-              '&format=json'
-          )
-          .subscribe((res: any) => {
-            if (!first) {
-              this.stations.firstStationCoords =
-                res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-                  .split(' ')
-                  .reverse()
-                  .map((el: string) => Number(el));
-              first = true;
-            } else {
-              this.stations.lastStationCoords =
-                res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-                  .split(' ')
-                  .reverse()
-                  .map((el: string) => Number(el));
-            }
-            console.log(this.stations.firstStationCoords);
-          });
-      });
-      console.log(this.firstStationCoords);
-      this.initMap();
+      if (this.stations.deliveryMethod == 'auto') {
+        const arr = [this.stations.firstStation, this.stations.lastStation];
+        let first: boolean = false;
+        arr.forEach((el: string) => {
+          this.http
+            .get(
+              'https://geocode-maps.yandex.ru/1.x/?apikey=' +
+                this.API_KEY +
+                '&geocode=' +
+                encodeURIComponent(el) +
+                '&format=json'
+            )
+            .subscribe((res: any) => {
+              if (!first) {
+                this.stations.firstStationCoords =
+                  res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                    .split(' ')
+                    .reverse()
+                    .map((el: string) => Number(el));
+                first = true;
+              } else {
+                this.stations.lastStationCoords =
+                  res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                    .split(' ')
+                    .reverse()
+                    .map((el: string) => Number(el));
+              }
+            });
+        });
+        this.initMap();
+      } else {
+      }
     }
   }
 
@@ -162,22 +168,23 @@ export class ControlPanelComponent implements OnInit {
             //   activeRoute.model.properties._data.rawProperties.boundedBy.map((point: any[]) => point.reverse())
 
             // Получим протяженность маршрута.
-            this.PATH = route.getActiveRoute().properties.get('distance');
-            // Вычислим стоимость доставки.
-            this.DAYS = Math.ceil(this.PATH.value / 1000 / 90 / 16);
-            (this.PRICE = this.calculate(Math.round(this.PATH.value / 1000))),
+            (this.PATH = route.getActiveRoute().properties.get('distance')),
+              // Вычислим стоимость доставки.
+              (this.DAYS = Math.ceil(this.PATH.value / 1000 / 90 / 16)),
+              (this.PRICE = this.calculate(Math.round(this.PATH.value / 1000))),
               (this.HOURS = Math.ceil(this.PATH.value / 1000 / 90));
             /*
             ВЫЧИСЛЯТЬ ДЛИТЕЛЬНОСТЬ ПУТИ ПО РАСЧЕТУ РАССТОЯНИЕ / 90КМЧ
             + В СУТКИ ОКОЛО 12-18 ЧАСОВ ЕЗДЫ
             */
             // Создадим макет содержимого балуна маршрута.
+            console.log(this.DAYS);
             const balloonContentLayout =
               ymaps.templateLayoutFactory.createClass(
                 '<span>Расстояние: ' +
                   this.PATH.text +
                   '.</span><br/> <span>Время: </span>' +
-                  (this.HOURS > 16 ? date + ' дн.' : this.HOURS + ' ч.') +
+                  (this.HOURS > 16 ? this.DAYS + ' дн.' : this.HOURS + ' ч.') +
                   '<br/><span style="font-weight: bold; font-style: italic">Стоимость доставки: ' +
                   this.PRICE +
                   ' р.</span>'

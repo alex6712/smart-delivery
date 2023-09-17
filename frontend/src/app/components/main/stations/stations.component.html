@@ -92,12 +92,12 @@
       *ngIf="stationForm.get('deliveryMethod')!.value == 'trailway'"
     >
       <label for="">
-        <h6>Введите станцию отправления</h6>
+        <h6>Введите код станции отправления</h6>
         <input
           type="text"
           formControlName="firstStation"
           class="station__top-input"
-          placeholder="Введите станцию отправления"
+          placeholder="Введите код станции отправления"
           required
           minlength="1"
         />
@@ -119,12 +119,12 @@
       </label>
 
       <label for="">
-        <h6>Введите станцию назначения</h6>
+        <h6>Введите код станции назначения</h6>
         <input
           type="text"
           formControlName="lastStation"
           class="station__top-input"
-          placeholder="Введите станцию назначения"
+          placeholder="Введите код станции назначения"
           required
           minlength="1"
         />
