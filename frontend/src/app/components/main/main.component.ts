@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/api/auth.service';
 import { AuthStore } from 'src/app/store/auth/auth.reducer';
+import { DelivMethod } from './stations/stations.component';
 
 export interface Path {
   firstStation: string;
   lastStation: string;
+  deliveryMethod: string;
 }
 
 @Component({
@@ -14,19 +16,18 @@ export interface Path {
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  stations: { firstStation: string; lastStation: string };
+  stations: Path;
 
   constructor(private auth: AuthService, private store$: Store<AuthStore>) {}
 
   ngOnInit(): void {}
 
-  setPath(path: { firstStation: string; lastStation: string }) {
-    this.stations = path;
-    this.uploadPath(this.stations);
-  }
-
-  uploadPath(path: { firstStation: string; lastStation: string }) {
-    return path;
+  setPath(path: Path) {
+    console.log(path);
+    if (path.deliveryMethod == 'auto') {
+      this.stations = path;
+    } else {
+    }
   }
 
   refresh() {

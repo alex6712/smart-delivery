@@ -6,10 +6,16 @@
    gap: 10px;
 }
 
+.station__block {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   align-items: center;
+}
+
 .station__top {
    display: grid;
    align-items: start;
-   grid-template-rows: 3fr 3fr 2fr;
    justify-content: space-between;
    gap: 10px;
    width: 100%;

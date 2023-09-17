@@ -7,4 +7,6 @@ export const SIGNIN_URL = MAIN_URL + '/auth/sign_in';
 export const SIGNUP_URL = MAIN_URL + '/auth/sign_up';
 export const REFRESH_URL = MAIN_URL + '/auth/refresh';
 
+export const UPLOAD_STATION_FORM = MAIN_URL + '/';
+
 export const ME_URL = MAIN_URL + '/users/me';

@@ -9,6 +9,7 @@ interface Stations {
   firstStationCoords?: number[];
   lastStation: string;
   lastStationCoords?: number[];
+  deliveryMethod: string;
 }
 
 @Component({
@@ -43,6 +44,7 @@ export class ControlPanelComponent implements OnInit {
   ngOnInit() {
     console.log(this.stations);
     if (this.stations) {
+      // if ()
       const arr = [this.stations.firstStation, this.stations.lastStation];
       let first: boolean = false;
       arr.forEach((el: string) => {

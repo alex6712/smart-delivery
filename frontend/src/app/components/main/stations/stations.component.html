@@ -6,67 +6,154 @@
     novalidate
   >
     <label for="">
-      <h6>Введите место отправления</h6>
-      <input
-        type="text"
-        formControlName="firstStation"
-        class="station__top-input"
-        placeholder="Введите место отправления"
-        required
-        minlength="1"
-      />
-      <span
-        *ngIf="
-          _firstStation!.invalid &&
-          (_firstStation!.touched || _firstStation!.dirty)
-        "
-      >
-        <span *ngIf="_firstStation!.errors?.['required']"
-          >Обязательное поле</span
+      <h6>Способ доставки</h6>
+      <select formControlName="deliveryMethod">
+        <option [ngValue]="null" disabled>Choose your profile</option>
+        <option
+          *ngFor="let dm of allDeliveryMethods"
+          [ngValue]="dm.value"
+          (click)="clearForm(dm.value)"
         >
-        <span
-          *ngIf="!_firstStation!.errors?.['minLength'] && !_firstStation!.errors?.['required']"
-          >Введенное значение слишком короткое
-          {{ _firstStation!.errors?.['minLength'] }}</span
-        >
-      </span>
+          {{ dm.title }}
+        </option>
+      </select>
     </label>
 
-    <label for="">
-      <h6>Введите место назначения</h6>
-      <input
-        type="text"
-        formControlName="lastStation"
-        class="station__top-input"
-        placeholder="Введите место назначения"
-        required
-        minlength="1"
-      />
-      <span
-        *ngIf="
-          _lastStation!.invalid &&
-          (_lastStation!.touched || _lastStation!.dirty)
-        "
-      >
-        <span *ngIf="_lastStation!.errors?.['required']"
-          >Обязательное поле</span
-        >
-        <span
-          *ngIf="!_lastStation!.errors?.['minLength'] && !_lastStation!.errors?.['required']"
-          >Введенное значение слишком короткое
-          {{ _lastStation!.errors?.['minLength'] }}</span
-        >
-      </span>
-    </label>
-
-    <button
-      type="button"
-      [disabled]="!stationForm.valid"
-      class="station__send btn"
-      (click)="send()"
+    <div
+      class="station__block"
+      *ngIf="stationForm.get('deliveryMethod')!.value == 'auto'"
     >
-      Найти маршрут
-    </button>
+      <label for="">
+        <h6>Введите место отправления</h6>
+        <input
+          type="text"
+          formControlName="firstStation"
+          class="station__top-input"
+          placeholder="Введите место отправления"
+          required
+          minlength="1"
+        />
+        <span
+          *ngIf="
+            _firstStation!.invalid &&
+            (_firstStation!.touched || _firstStation!.dirty)
+          "
+        >
+          <span *ngIf="_firstStation!.errors?.['required']"
+            >Обязательное поле</span
+          >
+          <span
+            *ngIf="!_firstStation!.errors?.['minLength'] && !_firstStation!.errors?.['required']"
+            >Введенное значение слишком короткое
+            {{ _firstStation!.errors?.['minLength'] }}</span
+          >
+        </span>
+      </label>
+
+      <label for="">
+        <h6>Введите место назначения</h6>
+        <input
+          type="text"
+          formControlName="lastStation"
+          class="station__top-input"
+          placeholder="Введите место назначения"
+          required
+          minlength="1"
+        />
+        <span
+          *ngIf="
+            _lastStation!.invalid &&
+            (_lastStation!.touched || _lastStation!.dirty)
+          "
+        >
+          <span *ngIf="_lastStation!.errors?.['required']"
+            >Обязательное поле</span
+          >
+          <span
+            *ngIf="!_lastStation!.errors?.['minLength'] && !_lastStation!.errors?.['required']"
+            >Введенное значение слишком короткое
+            {{ _lastStation!.errors?.['minLength'] }}</span
+          >
+        </span>
+      </label>
+
+      <button
+        type="button"
+        [disabled]="!stationForm.valid"
+        class="station__send btn"
+        (click)="send()"
+      >
+        Найти маршрут
+      </button>
+    </div>
+
+    <div
+      class="station__block"
+      *ngIf="stationForm.get('deliveryMethod')!.value == 'trailway'"
+    >
+      <label for="">
+        <h6>Введите станцию отправления</h6>
+        <input
+          type="text"
+          formControlName="firstStation"
+          class="station__top-input"
+          placeholder="Введите станцию отправления"
+          required
+          minlength="1"
+        />
+        <span
+          *ngIf="
+            _firstStation!.invalid &&
+            (_firstStation!.touched || _firstStation!.dirty)
+          "
+        >
+          <span *ngIf="_firstStation!.errors?.['required']"
+            >Обязательное поле</span
+          >
+          <span
+            *ngIf="!_firstStation!.errors?.['minLength'] && !_firstStation!.errors?.['required']"
+            >Введенное значение слишком короткое
+            {{ _firstStation!.errors?.['minLength'] }}</span
+          >
+        </span>
+      </label>
+
+      <label for="">
+        <h6>Введите станцию назначения</h6>
+        <input
+          type="text"
+          formControlName="lastStation"
+          class="station__top-input"
+          placeholder="Введите станцию назначения"
+          required
+          minlength="1"
+        />
+        <span
+          *ngIf="
+            _lastStation!.invalid &&
+            (_lastStation!.touched || _lastStation!.dirty)
+          "
+        >
+          <span *ngIf="_lastStation!.errors?.['required']"
+            >Обязательное поле</span
+          >
+          <span
+            *ngIf="!_lastStation!.errors?.['minLength'] && !_lastStation!.errors?.['required']"
+            >Введенное значение слишком короткое
+            {{ _lastStation!.errors?.['minLength'] }}</span
+          >
+        </span>
+      </label>
+
+      <button
+        type="button"
+        [disabled]="!stationForm.valid"
+        class="station__send btn"
+        (click)="send()"
+      >
+        Найти маршрут
+      </button>
+    </div>
   </form>
 
   <ol class="station__list">
