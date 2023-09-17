@@ -14,14 +14,19 @@ export interface Path {
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  stations: any[] = [];
+  stations: { firstStation: string; lastStation: string };
 
   constructor(private auth: AuthService, private store$: Store<AuthStore>) {}
 
   ngOnInit(): void {}
 
-  setPath(path: Path) {
-    console.log(1, path);
+  setPath(path: { firstStation: string; lastStation: string }) {
+    this.stations = path;
+    this.uploadPath(this.stations);
+  }
+
+  uploadPath(path: { firstStation: string; lastStation: string }) {
+    return path;
   }
 
   refresh() {

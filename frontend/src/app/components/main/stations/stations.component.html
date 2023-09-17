@@ -32,6 +32,33 @@
       </span>
     </label>
 
+    <label for="">
+      <h6>Введите место назначения</h6>
+      <input
+        type="text"
+        formControlName="lastStation"
+        class="station__top-input"
+        placeholder="Введите место назначения"
+        required
+        minlength="1"
+      />
+      <span
+        *ngIf="
+          _lastStation!.invalid &&
+          (_lastStation!.touched || _lastStation!.dirty)
+        "
+      >
+        <span *ngIf="_lastStation!.errors?.['required']"
+          >Обязательное поле</span
+        >
+        <span
+          *ngIf="!_lastStation!.errors?.['minLength'] && !_lastStation!.errors?.['required']"
+          >Введенное значение слишком короткое
+          {{ _lastStation!.errors?.['minLength'] }}</span
+        >
+      </span>
+    </label>
+
     <button
       type="button"
       [disabled]="!stationForm.valid"
@@ -43,9 +70,10 @@
   </form>
 
   <ol class="station__list">
+    <h2 class="station__title">Ваш маршрут</h2>
     <!-- Выводим все станции на пути от А до В -->
-    <li class="station__list-item">
+    <!-- <li class="station__list-item">
       <h3 class="station__list-title"></h3>
-    </li>
+    </li> -->
   </ol>
 </div>

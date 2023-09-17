@@ -1,5 +1,4 @@
 <div class="container">
-  <button type="button" (click)="refresh()">рефреш</button>
   <div class="main__wrapper">
     <app-stations
       class="station"
@@ -7,6 +6,10 @@
       (emitPath)="setPath($event)"
     ></app-stations>
 
-    <app-control-panel class="control-panel"></app-control-panel>
+    <app-control-panel
+      *ngIf="stations"
+      class="control-panel"
+      [stations]="stations"
+    ></app-control-panel>
   </div>
 </div>

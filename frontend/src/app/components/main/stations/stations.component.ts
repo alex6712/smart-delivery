@@ -15,14 +15,18 @@ export class StationsComponent implements OnInit {
   stationForm: FormGroup;
 
   @Input()
-  stations: any[] = [];
+  stations: { firstStation: string; lastStation: string };
 
   @Output()
   emitPath = new EventEmitter();
 
   constructor(private fb: FormBuilder) {
     this.stationForm = new FormGroup({
-      firstStation: new FormControl('', [
+      firstStation: new FormControl('Академика Сахарова, 105', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      lastStation: new FormControl('Максима Горького, 250', [
         Validators.required,
         Validators.minLength(3),
       ]),
@@ -32,16 +36,21 @@ export class StationsComponent implements OnInit {
   ngOnInit(): void {}
 
   send() {
-    console.log(0, this.stationForm.value);
     this.emitPath.emit({
       firstStation: this._firstStation?.value,
+      lastStation: this._lastStation?.value,
     });
     this.stationForm.setValue({
       firstStation: '',
+      lastStation: '',
     });
   }
 
   get _firstStation() {
     return this.stationForm.get('firstStation');
+  }
+
+  get _lastStation() {
+    return this.stationForm.get('lastStation');
   }
 }
