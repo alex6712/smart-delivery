@@ -110,8 +110,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_LIFETIME_DAYS: int
 
     model_config = SettingsConfigDict(
-        env_file="smart_delivery/.env.development",
-        case_sensitive=True
+        env_file="smart_delivery/.env.development", case_sensitive=True
     )
 
 
