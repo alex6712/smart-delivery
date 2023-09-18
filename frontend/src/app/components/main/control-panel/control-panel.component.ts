@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { stat } from 'fs';
 
 declare const ymaps: any;
 
@@ -30,7 +29,6 @@ export class ControlPanelComponent implements OnInit {
   stations: Stations;
 
   public map: any;
-  public geolocation: any;
   public objects: any;
   public circle: any;
   public routePanelControl: any;
@@ -48,39 +46,36 @@ export class ControlPanelComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    if (this.stations) {
-      if (this.stations.deliveryMethod == 'auto') {
-        const arr = [this.stations.firstStation, this.stations.lastStation];
-        let first: boolean = false;
-        arr.forEach((el: string) => {
-          this.http
-            .get(
-              'https://geocode-maps.yandex.ru/1.x/?apikey=' +
-                this.API_KEY +
-                '&geocode=' +
-                encodeURIComponent(el) +
-                '&format=json'
-            )
-            .subscribe((res: any) => {
-              if (!first) {
-                this.stations.firstStationCoords =
-                  res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-                    .split(' ')
-                    .reverse()
-                    .map((el: string) => Number(el));
-                first = true;
-              } else {
-                this.stations.lastStationCoords =
-                  res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-                    .split(' ')
-                    .reverse()
-                    .map((el: string) => Number(el));
-              }
-            });
-        });
-        this.initMap();
-      } else {
-      }
+    if (this.stations && this.stations.deliveryMethod == 'auto') {
+      const arr = [this.stations.firstStation, this.stations.lastStation];
+      let first: boolean = false;
+      arr.forEach((el: string) => {
+        this.http
+          .get(
+            'https://geocode-maps.yandex.ru/1.x/?apikey=' +
+              this.API_KEY +
+              '&geocode=' +
+              encodeURIComponent(el) +
+              '&format=json'
+          )
+          .subscribe((res: any) => {
+            if (!first) {
+              this.stations.firstStationCoords =
+                res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                  .split(' ')
+                  .reverse()
+                  .map((el: string) => Number(el));
+              first = true;
+            } else {
+              this.stations.lastStationCoords =
+                res.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                  .split(' ')
+                  .reverse()
+                  .map((el: string) => Number(el));
+            }
+          });
+      });
+      this.initMap();
     }
   }
 
@@ -127,13 +122,12 @@ export class ControlPanelComponent implements OnInit {
 
   async initMap() {
     await ymaps.ready().then(() => {
-      (this.geolocation = ymaps.geolocation),
-        (this.routePanelControl = new ymaps.control.RoutePanel({
-          options: {
-            showHeader: true,
-            title: 'Расчёт доставки',
-          },
-        })),
+      (this.routePanelControl = new ymaps.control.RoutePanel({
+        options: {
+          showHeader: true,
+          title: 'Расчёт доставки',
+        },
+      })),
         (this.zoomControl = new ymaps.control.ZoomControl({
           options: {
             size: 'small',
@@ -154,7 +148,6 @@ export class ControlPanelComponent implements OnInit {
         to: this.stations.lastStation,
       });
 
-      let date: number = 0;
       this.routePanelControl.routePanel.getRouteAsync().then((route: any) => {
         // Зададим максимально допустимое число маршрутов, возвращаемых мультимаршрутизатором.
         route.model.setParams({ results: 1 }, true);
@@ -163,18 +156,13 @@ export class ControlPanelComponent implements OnInit {
         route.model.events.add('requestsuccess', () => {
           const activeRoute = route.getActiveRoute();
           if (activeRoute) {
-            //   activeRoute.model.properties._data.rawProperties.boundedBy.map((point: any[]) => point.reverse())
-
             // Получим протяженность маршрута.
             (this.PATH = route.getActiveRoute().properties.get('distance')),
               // Вычислим стоимость доставки.
               (this.DAYS = Math.ceil(this.PATH.value / 1000 / 90 / 16)),
               (this.PRICE = this.calculate(Math.round(this.PATH.value / 1000))),
               (this.HOURS = Math.ceil(this.PATH.value / 1000 / 90));
-            /*
-            ВЫЧИСЛЯТЬ ДЛИТЕЛЬНОСТЬ ПУТИ ПО РАСЧЕТУ РАССТОЯНИЕ / 90КМЧ
-            + В СУТКИ ОКОЛО 12-18 ЧАСОВ ЕЗДЫ
-            */
+
             // Создадим макет содержимого балуна маршрута.
             const balloonContentLayout =
               ymaps.templateLayoutFactory.createClass(
@@ -186,11 +174,13 @@ export class ControlPanelComponent implements OnInit {
                   this.PRICE +
                   ' р.</span>'
               );
+
             // Зададим этот макет для содержимого балуна.
             route.options.set(
               'routeBalloonContentLayout',
               balloonContentLayout
             );
+
             // Откроем балун.
             activeRoute.balloon.open();
           }
