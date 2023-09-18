@@ -13,6 +13,13 @@
    align-items: center;
 }
 
+.station__select {
+   padding: 5px;
+   background: transparent;
+   border: 1px solid;
+   border-radius: 5px;
+}
+
 .station__top {
    display: grid;
    align-items: start;

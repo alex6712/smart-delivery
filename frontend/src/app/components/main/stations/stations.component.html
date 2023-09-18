@@ -7,7 +7,7 @@
   >
     <label for="">
       <h6>Способ доставки</h6>
-      <select formControlName="deliveryMethod">
+      <select formControlName="deliveryMethod" class="station__select">
         <option [ngValue]="null" disabled>Choose your profile</option>
         <option
           *ngFor="let dm of allDeliveryMethods"

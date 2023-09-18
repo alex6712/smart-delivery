@@ -48,7 +48,6 @@ export class ControlPanelComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    console.log(this.stations);
     if (this.stations) {
       if (this.stations.deliveryMethod == 'auto') {
         const arr = [this.stations.firstStation, this.stations.lastStation];
@@ -123,7 +122,6 @@ export class ControlPanelComponent implements OnInit {
       );
       this.map.geoObjects.add(myLine);
       this.map.setBounds(myLine.geometry.getBounds());
-      console.log(myLine.getParent());
     });
   }
 
@@ -178,7 +176,6 @@ export class ControlPanelComponent implements OnInit {
             + В СУТКИ ОКОЛО 12-18 ЧАСОВ ЕЗДЫ
             */
             // Создадим макет содержимого балуна маршрута.
-            console.log(this.DAYS);
             const balloonContentLayout =
               ymaps.templateLayoutFactory.createClass(
                 '<span>Расстояние: ' +
